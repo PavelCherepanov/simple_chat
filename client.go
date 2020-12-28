@@ -16,7 +16,7 @@ const (
 )
 
 var username string
-logs := []string{}
+
 func main() {
 	conn, err := net.Dial(PROTOCOL, PORT)
 	if err != nil {
@@ -45,9 +45,9 @@ func tryConnection(conn net.Conn) {
 }
 
 func client(conn net.Conn) {
+	fmt.Println("Success " + username)
+	fmt.Println("Write hello to everyone")
 	for {
-		fmt.Println("Success " + username)
-		fmt.Println("Write hello to everyone")
 		var message = inputString("")
 
 		if len(message) != 0 {
@@ -81,18 +81,4 @@ func errorConnection() {
 func addUser(conn net.Conn) {
 	username = inputString("Nickname: ")
 	conn.Write([]byte(fmt.Sprintf("[Added user]: %s\n ", username)))
-}
-
-// writing all logs to the file
-
-func writeFile(){
-	file, error := os.Create("logs.txt")
-	if err != nil{
-        fmt.Println("Unable to create file:", err) 
-        os.Exit(1) 
-	}
-	defer file.Close() 
-    file.WriteString(text)
-     
-    
 }
